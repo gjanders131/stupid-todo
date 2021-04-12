@@ -8,7 +8,7 @@ import * as THREE from "three";
 
 export default function WhiteBoard(props) {
   const group = useRef();
-  const { nodes, materials } = useGLTF("/whiteboard.gltf");
+  const { nodes, materials } = useGLTF("/whiteBoard.gltf");
 
   const whiteBoardMat = new THREE.MeshStandardMaterial({
     color: "#dddddd",
