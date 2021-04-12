@@ -6,20 +6,20 @@ import React, { Suspense, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-export default function WhiteBoard(props) {
+const WhiteBoard = (props) => {
   const group = useRef();
-  const { nodes, materials } = useGLTF("/whiteBoard.gltf");
+  const { nodes } = useGLTF("/whiteBoard.gltf");
 
   const whiteBoardMat = new THREE.MeshStandardMaterial({
     color: "#dddddd",
     roughness: 0.1,
-    metalness: 0,
+    metalness: 0
   });
 
   const frameMat = new THREE.MeshStandardMaterial({
     color: "#a5a5a5",
     roughness: 0.5,
-    metalness: 0.5,
+    metalness: 0.5
   });
 
   return (
@@ -42,6 +42,8 @@ export default function WhiteBoard(props) {
       </group>
     </Suspense>
   );
-}
+};
 
 useGLTF.preload("/whiteboard.gltf");
+
+export default WhiteBoard;

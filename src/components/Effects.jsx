@@ -12,7 +12,7 @@ export default function Effects() {
   const composer = useRef();
   const { scene, gl, size, camera } = useThree();
   useEffect(() => void composer.current.setSize(size.width, size.height), [
-    size,
+    size
   ]);
   useFrame(() => composer.current.render(), 1);
   return (

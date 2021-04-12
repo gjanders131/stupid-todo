@@ -31,8 +31,13 @@ const TodoForm = ({ todo, setTodo }) => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("content", { required: true })} />
-        <input type="submit" />
+        <input
+          {...register("content", { required: true })}
+          placeholder="New Todo"
+        />
+        <label>
+          <button type="submit">Add ToDo</button>
+        </label>
       </form>
     </div>
   );

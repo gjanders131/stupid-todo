@@ -22,7 +22,7 @@ const ThreeCanvas = ({ todo, setTodo, toDelete, setToDelete }) => {
   const shadowCamSize = 25;
 
   return (
-    <Canvas colorManagement shadowMap>
+    <Canvas camera={{ position: [0, 0, 20] }} colorManagement shadowMap>
       <CameraControls />
       <directionalLight
         position={[10, 15, 20]}
@@ -37,7 +37,7 @@ const ThreeCanvas = ({ todo, setTodo, toDelete, setToDelete }) => {
       />
       <Suspense fallback={null}>
         <EnvLight />
-        <WhiteBoard />
+
         {todo.map((newTodo) => {
           return (
             <Postit
@@ -51,6 +51,7 @@ const ThreeCanvas = ({ todo, setTodo, toDelete, setToDelete }) => {
             />
           );
         })}
+        <WhiteBoard />
       </Suspense>
       <Effects />
     </Canvas>
