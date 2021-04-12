@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import TodoForm from "./components/TodoForm";
+import ThreeCanvas from "./ThreeCanvas";
 
 function App() {
+  const [todo, setTodo] = useState([]);
+  const [toDelete, setToDelete] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-screen h-screen bg-green-500">
+      <TodoForm todo={todo} setTodo={setTodo} />
+      <ThreeCanvas
+        todo={todo}
+        setTodo={setTodo}
+        toDelete={toDelete}
+        setToDelete={setToDelete}
+      />
     </div>
   );
 }
