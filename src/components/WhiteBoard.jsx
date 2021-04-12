@@ -17,9 +17,9 @@ export default function WhiteBoard(props) {
   });
 
   const frameMat = new THREE.MeshStandardMaterial({
-    color: "#a8a8a8",
-    roughness: 0.3,
-    metalness: 1,
+    color: "#a5a5a5",
+    roughness: 0.5,
+    metalness: 0.5,
   });
 
   return (
@@ -27,11 +27,15 @@ export default function WhiteBoard(props) {
       <group ref={group} {...props} dispose={null}>
         <mesh
           geometry={nodes.frame.geometry}
+          castShadow
+          receiveShadow
           material={frameMat}
           rotation={[Math.PI / 2, 0, 0]}
         />
         <mesh
           geometry={nodes.whiteBoard.geometry}
+          castShadow
+          receiveShadow
           material={whiteBoardMat}
           rotation={[Math.PI / 2, 0, 0]}
         />

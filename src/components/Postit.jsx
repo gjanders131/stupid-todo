@@ -99,6 +99,8 @@ const Postit = (props) => {
     <Suspense fallback={null}>
       <group ref={group} {...props} dispose={null}>
         <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.Plane.geometry}
           material={newMat()}
           position={props.position}
