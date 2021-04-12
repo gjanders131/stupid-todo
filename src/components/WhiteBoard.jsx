@@ -17,8 +17,8 @@ export default function WhiteBoard(props) {
   });
 
   const frameMat = new THREE.MeshStandardMaterial({
-    color: "#ffffff",
-    roughness: 0.7,
+    color: "#a8a8a8",
+    roughness: 0.3,
     metalness: 1,
   });
 

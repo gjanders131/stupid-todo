@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { Suspense, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 
-function makeLabelCanvas(size, content) {
+function makeLabelCanvas(size, content, bgcolor, textColor, blur) {
   const borderSize = 25;
   const ctx = document.createElement("canvas").getContext("2d");
   const font = `${size}px Shadows Into Light`;
@@ -17,7 +17,6 @@ function makeLabelCanvas(size, content) {
   }
   
   */
-  console.log({ width, height });
   ctx.canvas.width = width;
   ctx.canvas.height = width;
 
@@ -25,31 +24,13 @@ function makeLabelCanvas(size, content) {
   ctx.font = font;
   ctx.textBaseline = "top";
 
-  const altCtx = ctx;
-  const nrmCtx = ctx;
-  altCtx.fillStyle = "black";
-  altCtx.fillRect(0, 0, width, width);
-  altCtx.filter = "blur(2px)";
-  altCtx.fillStyle = "white";
-  altCtx.fillText(content, borderSize, borderSize);
-
-  nrmCtx.fillStyle = "#ffffff";
-  nrmCtx.fillRect(0, 0, width, width);
-  nrmCtx.filter = "blur(1px)";
-  nrmCtx.fillStyle = "#000000";
-  nrmCtx.fillText(content, borderSize, borderSize);
-
-  ctx.fillStyle = "white";
+  ctx.fillStyle = bgcolor;
+  ctx.filter = `blur(${blur})`;
   ctx.fillRect(0, 0, width, width);
-  ctx.filter = "blur(0.5px)";
-  ctx.fillStyle = "#1f1f1f";
+  ctx.fillStyle = textColor;
   ctx.fillText(content, borderSize, borderSize);
 
-  return {
-    canvas: ctx.canvas,
-    altCanvas: altCtx.canvas,
-    nrmCanvas: nrmCtx.canvas,
-  };
+  return ctx;
 }
 
 const Postit = (props) => {
@@ -63,38 +44,53 @@ const Postit = (props) => {
 
   //Material with canvas texture
   const newMat = () => {
-    const canvas = makeLabelCanvas(
+    const diffuseText = makeLabelCanvas(
       100,
       props.content,
-      hover ? "yellow" : props.color
+      "white",
+      "#292929",
+      "0px"
     );
-    const texture = new THREE.CanvasTexture(canvas.canvas);
-    // because our canvas is likely not a power of 2
-    // in both dimensions set the filtering appropriately.
+    const roughnessText = makeLabelCanvas(
+      100,
+      props.content,
+      "#cccccc",
+      "#616161",
+      "2px"
+    );
+    const bumpText = makeLabelCanvas(
+      100,
+      props.content,
+      "#ffffff",
+      "#fdfdfd",
+      "0.5px"
+    );
+
+    const texture = new THREE.CanvasTexture(diffuseText.canvas);
     texture.minFilter = THREE.LinearFilter;
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
     texture.flipY = false;
 
-    const altTex = new THREE.CanvasTexture(canvas.altCanvas);
-    altTex.minFilter = THREE.LinearFilter;
-    altTex.wrapS = THREE.ClampToEdgeWrapping;
-    altTex.wrapT = THREE.ClampToEdgeWrapping;
-    altTex.flipY = false;
+    const roughness = new THREE.CanvasTexture(roughnessText.canvas);
+    roughness.minFilter = THREE.LinearFilter;
+    roughness.wrapS = THREE.ClampToEdgeWrapping;
+    roughness.wrapT = THREE.ClampToEdgeWrapping;
+    roughness.flipY = false;
 
-    const nrmTex = new THREE.CanvasTexture(canvas.nrmCanvas);
-    nrmTex.minFilter = THREE.LinearFilter;
-    nrmTex.wrapS = THREE.ClampToEdgeWrapping;
-    nrmTex.wrapT = THREE.ClampToEdgeWrapping;
-    nrmTex.flipY = false;
+    const bump = new THREE.CanvasTexture(bumpText.canvas);
+    bump.minFilter = THREE.LinearFilter;
+    bump.wrapS = THREE.ClampToEdgeWrapping;
+    bump.wrapT = THREE.ClampToEdgeWrapping;
+    bump.flipY = false;
 
     return new THREE.MeshStandardMaterial({
       color: hover ? "yellow" : props.color,
       map: texture,
       side: THREE.DoubleSide,
       roughness: 0.5,
-      roughnessMap: altTex,
-      bumpMap: nrmTex,
+      roughnessMap: roughness,
+      bumpMap: bump,
       metalness: 0,
     });
   };
