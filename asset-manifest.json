@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/stupid-todo/static/css/main.4c4e75b0.chunk.css",
+    "main.js": "/stupid-todo/static/js/main.64427669.chunk.js",
+    "main.js.map": "/stupid-todo/static/js/main.64427669.chunk.js.map",
+    "runtime-main.js": "/stupid-todo/static/js/runtime-main.d3346b4a.js",
+    "runtime-main.js.map": "/stupid-todo/static/js/runtime-main.d3346b4a.js.map",
+    "static/js/2.a5df7e59.chunk.js": "/stupid-todo/static/js/2.a5df7e59.chunk.js",
+    "static/js/2.a5df7e59.chunk.js.map": "/stupid-todo/static/js/2.a5df7e59.chunk.js.map",
+    "index.html": "/stupid-todo/index.html",
+    "static/css/main.4c4e75b0.chunk.css.map": "/stupid-todo/static/css/main.4c4e75b0.chunk.css.map",
+    "static/js/2.a5df7e59.chunk.js.LICENSE.txt": "/stupid-todo/static/js/2.a5df7e59.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d3346b4a.js",
+    "static/js/2.a5df7e59.chunk.js",
+    "static/css/main.4c4e75b0.chunk.css",
+    "static/js/main.64427669.chunk.js"
+  ]
+}
